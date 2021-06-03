@@ -11,7 +11,7 @@ export default class SettingSection {
           </p>
           <div class="d-flex">
             <input type="text" class="w-100 mr-2" placeholder="자동차 이름" />
-            <button type="button" class="btn btn-cyan" onclick="alert('hello')">확인</button>
+            <button type="button" class="btn btn-cyan">확인</button>
           </div>
         </fieldset>
         <fieldset hidden>
