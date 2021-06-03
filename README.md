@@ -140,8 +140,8 @@ This project is [MIT](https://github.com/woowacourse/javascript-racingcar/blob/m
 - [x] 자동차 이름 입력
 - [x] 자동차 이름 제출
   - [x] racingSection에 자동차 이름 출력
-- [ ] 시도 횟수 입력
-- [ ] 시도 횟수 제출
+- [x] 시도 횟수 입력
+- [x] 시도 횟수 제출
   - [ ] 게임 시작
     - [ ] 자동차 전진
     - [ ] 자동차 대기

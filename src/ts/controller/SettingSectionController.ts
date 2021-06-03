@@ -9,6 +9,10 @@ export default class SettingSectionController {
     carNameInputButton.addEventListener("click", () => {
       this.splitCarNames();
     });
+    const numberInputButton = document.querySelectorAll("button")[1];
+    numberInputButton.addEventListener("click", () => {
+      this.setRacingRound();
+    });
   }
   splitCarNames() {
     const $carNamesInputBox = document.querySelector(
@@ -53,5 +57,19 @@ export default class SettingSectionController {
         .querySelector("section>div")
         ?.insertAdjacentHTML("beforeend", new RacingCarDiv().render(car));
     });
+  }
+  setRacingRound() {
+    const $numberInputBox = document.querySelector(
+      "input[type='number']"
+    ) as HTMLInputElement;
+    const racingRound: number = Number($numberInputBox?.value);
+    if (racingRound <= 0 || isNaN(racingRound)) {
+      alert(ERROR_MSG.WRONG_RACING_ROUND);
+      $numberInputBox.value = "0";
+      return;
+    }
+    localStorage.setItem("round", racingRound.toString());
+    $numberInputBox.disabled = true;
+    document.querySelectorAll("button")[1].disabled = true;
   }
 }
