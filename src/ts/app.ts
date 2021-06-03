@@ -1,4 +1,4 @@
-import RacingGame from "./RacingGame.js";
+import RacingGame from "./racingGame.js";
 
 export default function App() {
   new RacingGame({ $app: document.querySelector("#app")! });
