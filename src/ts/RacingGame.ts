@@ -1,3 +1,4 @@
+import SettingSectionController from "./controller/SettingSectionController.js";
 import RacingSection from "./render/racingSection.js";
 import SettingSection from "./render/settingSection.js";
 
@@ -5,6 +6,7 @@ export default class RacingGame {
   $app: HTMLDivElement;
   constructor({ $app }: { $app: HTMLDivElement }) {
     this.$app = $app;
+    localStorage.clear();
     this.init();
   }
 
@@ -13,7 +15,12 @@ export default class RacingGame {
     this.$app.insertAdjacentHTML("beforeend", new RacingSection().render());
   }
 
+  handleEvent() {
+    new SettingSectionController();
+  }
+
   init() {
     this.render();
+    this.handleEvent();
   }
 }
