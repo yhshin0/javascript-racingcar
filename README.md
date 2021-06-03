@@ -81,3 +81,57 @@ This project is [MIT](https://github.com/woowacourse/javascript-racingcar/blob/m
 - [x] tsconfig.json
 - [x] cypress.json
 - [x] package.json
+
+| https://reactjs-kr.firebaseapp.com/docs/thinking-in-react.html 에 기술된 대로 진행
+
+### Component로 분리
+
+- app: 페이지 전체를 표현
+  - section: 게임 전 설정 부분
+    - form: 게임 관련 설정 부분
+      - fieldset: 차 이름 설정 부분
+        - h1: 타이틀
+        - p: 차 이름 설명
+        - div: 차 이름 입력
+      - fieldset: 게임 횟수 설정 부분
+        - p: 시도 횟수 설명
+        - div: 시도 횟수 입력
+          - input: 시도 횟수 입력
+          - button: 시도 횟수 제출
+  - section: 자동차 경주 부분
+    - div: 자동차 경주 부분
+      - div: 차 1 경주 부분 (총 4개)
+        - div: 차 1 이름
+        - div: go 표시 ⬇️ (여러개 있을 수 있음)
+        - div: wait 표시
+          - div
+            - span
+  - section: 우승자 출력 부분
+    - div
+      - h2: 우승자 출력
+      - div: 다시 시작하기
+        - button: 다시 시작하기 버튼
+
+### 정적 버전 만들기
+
+- [ ] app
+- [ ] settingSection
+- [ ] racingSection
+  - [ ] racingCarDiv
+- [ ] resultSection
+
+## 테스트
+
+- [ ] 자동차 입력
+  - [ ] 5자 이상의 자동차 입력시 경고창 출력 // 123456, EAST, WEST, SOUTH
+  - [ ] 콤마를 연속해서 입력시 무시 // EAST,,,WEST,SOUTH,NORTH
+  - [ ] 차 이름이 없는 경우 경고창 출력(ex: 공백만 입력) // " " 입력
+  - [ ] 공백 무시 여부 // EAST , WEST ,SOUTH,NORTH
+  - [ ] 4대 초과시 경고창 출력 // EAST,WEST,SOUTH,NORTH,ABC
+- [ ] 시도 횟수 입력
+  - [ ] input min 설정 여부
+  - [ ] 음수 입력 시 경고창 출력
+- [ ] 우승자 출력
+  - [ ] 우승자 문서 위에 출력 여부 // should not ""
+  - [ ] 우승자가 여러명일 때 ,로 구분 여부
+  - [ ] 우승자 alert으로 2초 뒤에 출력 여부
