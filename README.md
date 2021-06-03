@@ -135,3 +135,18 @@ This project is [MIT](https://github.com/woowacourse/javascript-racingcar/blob/m
   - [ ] 우승자 문서 위에 출력 여부 // should not ""
   - [ ] 우승자가 여러명일 때 ,로 구분 여부
   - [ ] 우승자 alert으로 2초 뒤에 출력 여부
+
+### 기능
+
+- [ ] 자동차 이름 입력
+- [ ] 자동차 이름 제출
+  - [ ] racingSection에 자동차 이름 출력
+- [ ] 시도 횟수 입력
+- [ ] 시도 횟수 제출
+  - [ ] 게임 시작
+    - [ ] 자동차 전진
+    - [ ] 자동차 대기
+- [ ] 우승자 출력
+- [ ] 우승자 alert 출력
+- [ ] 다시 시작하기
+  - [ ] 요소 삭제
