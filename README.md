@@ -100,7 +100,7 @@ This project is [MIT](https://github.com/woowacourse/javascript-racingcar/blob/m
           - button: 시도 횟수 제출
   - section: 자동차 경주 부분
     - div: 자동차 경주 부분
-      - div: 차 1 경주 부분 (총 4개)
+      - div: 차 1 경주 부분
         - div: 차 1 이름
         - div: go 표시 ⬇️ (여러개 있을 수 있음)
         - div: wait 표시
@@ -127,7 +127,6 @@ This project is [MIT](https://github.com/woowacourse/javascript-racingcar/blob/m
   - [ ] 콤마를 연속해서 입력시 무시 // EAST,,,WEST,SOUTH,NORTH
   - [ ] 차 이름이 없는 경우 경고창 출력(ex: 공백만 입력) // " " 입력
   - [ ] 공백 무시 여부 // EAST , WEST ,SOUTH,NORTH
-  - [ ] 4대 초과시 경고창 출력 // EAST,WEST,SOUTH,NORTH,ABC
 - [ ] 시도 횟수 입력
   - [ ] input min 설정 여부
   - [ ] 음수 입력 시 경고창 출력
