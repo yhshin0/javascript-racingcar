@@ -1,4 +1,5 @@
 import RacingCarDiv from "../render/racingCarDiv.js";
+import RacingSectionController from "./racingSectionController.js";
 import { ERROR_MSG } from "./settingSectionControllerError.js";
 
 export default class SettingSectionController {
@@ -12,6 +13,9 @@ export default class SettingSectionController {
     const numberInputButton = document.querySelectorAll("button")[1];
     numberInputButton.addEventListener("click", () => {
       this.setRacingRound();
+      if (localStorage.getItem("round")) {
+        new RacingSectionController();
+      }
     });
   }
   splitCarNames() {
