@@ -10,16 +10,16 @@ export default class RacingGame {
     this.init();
   }
 
-  render() {
+  render(): void {
     this.$app.insertAdjacentHTML("beforeend", new SettingSection().render());
     this.$app.insertAdjacentHTML("beforeend", new RacingSection().render());
   }
 
-  handleEvent() {
+  handleEvent(): void {
     new SettingSectionController();
   }
 
-  init() {
+  init(): void {
     this.render();
     this.handleEvent();
   }

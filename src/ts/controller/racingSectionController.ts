@@ -5,25 +5,39 @@ export default class RacingSectionController {
   carDistances: number[];
   carHTMLElements: HTMLCollection | null;
   round: number;
-  resultSection: ResultSection;
+
   constructor() {
     this.cars = [];
     this.carDistances = [];
     this.carHTMLElements = null;
     this.round = 0;
-    this.resultSection = new ResultSection();
     this.setRacingCars();
     this.startGame();
   }
-  setRacingCars() {
+
+  setRacingCars(): void {
     this.cars = localStorage.getItem("cars")?.split(",")!;
     this.carDistances = Array.from({ length: this.cars.length }, () => 0);
     this.carHTMLElements = document.getElementsByClassName("car-player");
     this.round = Number(localStorage.getItem("round"));
   }
-  startRacing() {
+
+  async startGame(): Promise<void> {
+    const result: number = await this.startRacing();
+    clearInterval(<number> result);
+    const winner: string = this.findWinner();
+    this.removeSpinners();
+    this.renderResult();
+    setTimeout(() => {
+      alert(`🏆 WINNER is ${winner} 🏆`);
+      const $restartButton: HTMLButtonElement = document.getElementsByTagName("button")[2];
+      $restartButton.addEventListener("click", () => this.getBackToReadyState());
+    }, 2000);
+  }
+  
+  startRacing(): Promise<number> {
     return new Promise(resolve => {
-      let intervalTimerId = setInterval(() => {
+      let intervalTimerId: number = setInterval(() => {
         this.rollDiceAndRenderArrow();
       }, 1000);
       setTimeout(() => {
@@ -31,7 +45,8 @@ export default class RacingSectionController {
       }, this.round * 1000);
     });
   }
-  rollDiceAndRenderArrow() {
+
+  rollDiceAndRenderArrow(): void {
     this.cars?.forEach((_, idx) => {
       if (Math.random() * 10 >= 4) {
         this.carDistances[idx]++;
@@ -42,26 +57,17 @@ export default class RacingSectionController {
       }
     });
   }
-  async startGame() {
-    const result = await this.startRacing();
-    clearInterval(<number>result);
-    const maxDist = Math.max(...this.carDistances);
-    const winners = this.cars.filter(
+
+  findWinner(): string {
+    const maxDist: number = Math.max(...this.carDistances);
+    const winner: string[] = this.cars.filter(
       (_, idx) => this.carDistances[idx] == maxDist
     );
-    localStorage.setItem("winner", winners.toString());
-    this.removeSpinners();
-    document
-      .getElementById("app")
-      ?.insertAdjacentHTML("beforeend", <string>this.resultSection.render());
-    setTimeout(() => {
-      alert(`🏆 WINNER is ${winners} 🏆`);
-      document
-        .getElementsByTagName("button")[2]
-        .addEventListener("click", () => this.getBackToReadyState());
-    }, 2000);
+    localStorage.setItem("winner", winner.toString());
+    return winner.toString();
   }
-  removeSpinners() {
+
+  removeSpinners(): void {
     const spinners: HTMLCollection = document.getElementsByClassName(
       "d-flex justify-center mt-3"
     );
@@ -69,14 +75,25 @@ export default class RacingSectionController {
       spinners[i].remove();
     }
   }
-  getBackToReadyState() {
-    document.querySelectorAll("section")[2].remove();
-    (document.querySelector("div.mt-4") as HTMLDivElement).innerHTML = "";
+
+  renderResult(): void {
+    const resultSection = new ResultSection();
+    document
+      .getElementById("app")
+      ?.insertAdjacentHTML("beforeend", <string> resultSection.render());
+  }
+
+  getBackToReadyState(): void {
+    const $resultSection: HTMLElement = document.querySelectorAll("section")[2];
+    $resultSection.remove();
+    const $racingSection: HTMLDivElement = document.querySelector("div.mt-4")!;
+    $racingSection.innerHTML = "";
     document.querySelectorAll("input").forEach(elem=>{
       elem.disabled = false;
       elem.value = "";
     });
     document.querySelectorAll("button").forEach(elem=>elem.disabled = false);
-    document.querySelectorAll("fieldset")[1].hidden = true;
+    const $roundInputFieldset = document.querySelectorAll("fieldset")[1];
+    $roundInputFieldset.hidden = true;
   }
 }

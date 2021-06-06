@@ -4,21 +4,27 @@ import { ERROR_MSG } from "./SettingSectionControllerError.js";
 
 export default class SettingSectionController {
   cars: string[];
+  
   constructor() {
     this.cars = [];
-    const carNameInputButton = document.querySelectorAll("button")[0];
-    carNameInputButton.addEventListener("click", () => {
+    this.addEventToButtons();
+  }
+
+  addEventToButtons(): void {
+    const $carNameConfirmButton = document.getElementsByTagName("button")[0];
+    $carNameConfirmButton.addEventListener("click", () => {
       this.splitCarNames();
     });
-    const numberInputButton = document.querySelectorAll("button")[1];
-    numberInputButton.addEventListener("click", () => {
+    const $roundConfirmButton = document.getElementsByTagName("button")[1];
+    $roundConfirmButton.addEventListener("click", () => {
       this.setRacingRound();
       if (localStorage.getItem("round")) {
         new RacingSectionController();
       }
     });
   }
-  splitCarNames() {
+
+  splitCarNames(): void {
     const $carNamesInputBox = document.querySelector(
       "input[type='text']"
     ) as HTMLInputElement;
@@ -32,40 +38,46 @@ export default class SettingSectionController {
       $carNamesInputBox.value = "";
       return;
     }
-    this.displayNumField();
+    this.displayRoundFieldset();
     this.renderCars();
     localStorage.setItem("cars", this.cars.toString());
   }
-  displayNumField() {
+  
+    isValidCarName(): string {
+      if (this.cars.length === 0) {
+        return ERROR_MSG.NO_CAR;
+      }
+      this.cars.forEach(car => {
+        if (car.length > 5) {
+          return ERROR_MSG.OVER_CHARACTERS;
+        }
+      });
+      return ERROR_MSG.SUCCESS;
+    }
+
+  displayRoundFieldset(): void {
     const $carNamesInputBox = document.querySelector(
       "input[type='text']"
     ) as HTMLInputElement;
     $carNamesInputBox.disabled = true;
-    document.querySelectorAll("button")[0].disabled = true;
-    document.querySelectorAll("fieldset")[1].hidden = false;
+    const $carNamesConfirmButton: HTMLButtonElement = document.getElementsByTagName("button")[0];
+    $carNamesConfirmButton.disabled = true;
+    const $roundConfirmFieldset: HTMLElement = document.getElementsByTagName("fieldset")[1];
+    $roundConfirmFieldset.hidden = false;
   }
-  isValidCarName(): string {
-    if (this.cars.length === 0) {
-      return ERROR_MSG.NO_CAR;
-    }
-    this.cars.forEach(car => {
-      if (car.length > 5) {
-        return ERROR_MSG.OVER_CHARACTERS;
-      }
-    });
-    return ERROR_MSG.SUCCESS;
-  }
-  renderCars() {
+
+  renderCars(): void {
     this.cars.forEach(car => {
       document
         .querySelector("section>div")
         ?.insertAdjacentHTML("beforeend", new RacingCarDiv().render(car));
     });
   }
-  setRacingRound() {
-    const $numberInputBox = document.querySelector(
+
+  setRacingRound(): void {
+    const $numberInputBox: HTMLInputElement = document.querySelector(
       "input[type='number']"
-    ) as HTMLInputElement;
+    )!;
     const racingRound: number = Number($numberInputBox?.value);
     if (racingRound <= 0 || isNaN(racingRound)) {
       alert(ERROR_MSG.WRONG_RACING_ROUND);
@@ -74,6 +86,7 @@ export default class SettingSectionController {
     }
     localStorage.setItem("round", racingRound.toString());
     $numberInputBox.disabled = true;
-    document.querySelectorAll("button")[1].disabled = true;
+    const $roundConfirmButton: HTMLButtonElement = document.querySelectorAll("button")[1];
+    $roundConfirmButton.disabled = true;
   }
 }
