@@ -147,5 +147,5 @@ This project is [MIT](https://github.com/woowacourse/javascript-racingcar/blob/m
     - [x] 자동차 대기
 - [x] 우승자 출력
 - [x] 우승자 alert 출력
-- [ ] 다시 시작하기
-  - [ ] 요소 삭제
+- [x] 다시 시작하기
+  - [x] 요소 삭제

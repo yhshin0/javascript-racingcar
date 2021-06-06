@@ -52,13 +52,13 @@ export default class RacingSectionController {
     localStorage.setItem("winner", winners.toString());
     this.removeSpinners();
     document
-      .getElementsByTagName("body")[0]
+      .getElementById("app")
       ?.insertAdjacentHTML("beforeend", <string>this.resultSection.render());
     setTimeout(() => {
       alert(`🏆 WINNER is ${winners} 🏆`);
       document
         .getElementsByTagName("button")[2]
-        .addEventListener("click", () => alert("REMOVE ELEMENTS AND INIT!!!"));
+        .addEventListener("click", () => this.getBackToReadyState());
     }, 2000);
   }
   removeSpinners() {
@@ -68,5 +68,15 @@ export default class RacingSectionController {
     for (let i = spinners.length - 1; i >= 0; i--) {
       spinners[i].remove();
     }
+  }
+  getBackToReadyState() {
+    document.querySelectorAll("section")[2].remove();
+    (document.querySelector("div.mt-4") as HTMLDivElement).innerHTML = "";
+    document.querySelectorAll("input").forEach(elem=>{
+      elem.disabled = false;
+      elem.value = "";
+    });
+    document.querySelectorAll("button").forEach(elem=>elem.disabled = false);
+    document.querySelectorAll("fieldset")[1].hidden = true;
   }
 }
