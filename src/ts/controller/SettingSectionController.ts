@@ -1,6 +1,6 @@
-import RacingCarDiv from "../render/racingCarDiv.js";
-import RacingSectionController from "./racingSectionController.js";
-import { ERROR_MSG } from "./settingSectionControllerError.js";
+import RacingCarDiv from "../render/RacingCarDiv.js";
+import RacingSectionController from "./RacingSectionController.js";
+import { ERROR_MSG } from "./SettingSectionControllerError.js";
 
 export default class SettingSectionController {
   cars: string[];

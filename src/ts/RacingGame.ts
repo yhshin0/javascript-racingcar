@@ -1,6 +1,6 @@
-import SettingSectionController from "./controller/settingSectionController.js";
-import RacingSection from "./render/racingSection.js";
-import SettingSection from "./render/settingSection.js";
+import SettingSectionController from "./controller/SettingSectionController.js";
+import RacingSection from "./render/RacingSection.js";
+import SettingSection from "./render/SettingSection.js";
 
 export default class RacingGame {
   $app: HTMLDivElement;

@@ -1,4 +1,4 @@
-import ResultSection from "../render/resultSection.js";
+import ResultSection from "../render/ResultSection.js";
 
 export default class RacingSectionController {
   cars: string[];
