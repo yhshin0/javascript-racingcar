@@ -49,6 +49,18 @@ context("racing cars", () => {
     cy.get("div.car-player").eq(3).should("have.text", "NORTH");
   });
 
+  it("duplicate car name", () => {
+    const stub = cy.stub();
+    cy.on("window:alert", stub);
+    cy.get("input[type='text']").type("EAST,WEST,SOUTH,NORTH,EAST");
+    cy.get("button")
+      .eq(0)
+      .click()
+      .then(() => {
+        expect(stub.getCall(0)).to.be.calledWith(ERROR_MSG.DUPLICATE_CAR_NAME);
+      });
+  });
+
   it("input number min test", () => {
     cy.get("input[type='text']").type("EAST,WEST,SOUTH,NORTH");
     cy.get("button").eq(0).click();

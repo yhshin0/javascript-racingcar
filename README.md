@@ -127,6 +127,7 @@ This project is [MIT](https://github.com/woowacourse/javascript-racingcar/blob/m
   - [x] 콤마를 연속해서 입력시 무시 // EAST,,,WEST,SOUTH,NORTH
   - [x] 차 이름이 없는 경우 경고창 출력(ex: 공백만 입력) // " " 입력
   - [x] 공백 무시 여부 // EAST , WEST ,SOUTH,NORTH
+  - [x] 자동차 중복 여부 // EAST,WEST,SOUTH,NORTH,EAST
 - [x] 시도 횟수 입력
   - [x] input min 설정 여부
   - [x] 음수 입력 시 경고창 출력

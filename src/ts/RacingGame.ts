@@ -4,6 +4,7 @@ import SettingSection from "./render/SettingSection.js";
 
 export default class RacingGame {
   $app: HTMLDivElement;
+
   constructor({ $app }: { $app: HTMLDivElement }) {
     this.$app = $app;
     localStorage.clear();

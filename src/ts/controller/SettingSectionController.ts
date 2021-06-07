@@ -53,6 +53,9 @@ export default class SettingSectionController {
     if (this.cars.length === 0) {
       return ERROR_MSG.NO_CAR;
     }
+    if (new Set(this.cars).size !== this.cars.length) {
+      return ERROR_MSG.DUPLICATE_CAR_NAME;
+    }
     this.cars.forEach(car => {
       if (car.length > 5) {
         ret = ERROR_MSG.OVER_CHARACTERS;
