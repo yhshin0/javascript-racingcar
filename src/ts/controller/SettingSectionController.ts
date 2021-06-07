@@ -4,7 +4,7 @@ import { ERROR_MSG } from "./SettingSectionControllerError.js";
 
 export default class SettingSectionController {
   cars: string[];
-  
+
   constructor() {
     this.cars = [];
     this.addEventToButtons();
@@ -42,27 +42,30 @@ export default class SettingSectionController {
     this.renderCars();
     localStorage.setItem("cars", this.cars.toString());
   }
-  
-    isValidCarName(): string {
-      if (this.cars.length === 0) {
-        return ERROR_MSG.NO_CAR;
-      }
-      this.cars.forEach(car => {
-        if (car.length > 5) {
-          return ERROR_MSG.OVER_CHARACTERS;
-        }
-      });
-      return ERROR_MSG.SUCCESS;
+
+  isValidCarName(): string {
+    let ret = ERROR_MSG.SUCCESS;
+    if (this.cars.length === 0) {
+      return ERROR_MSG.NO_CAR;
     }
+    this.cars.forEach(car => {
+      if (car.length > 5) {
+        ret = ERROR_MSG.OVER_CHARACTERS;
+      }
+    });
+    return ret;
+  }
 
   displayRoundFieldset(): void {
     const $carNamesInputBox = document.querySelector(
       "input[type='text']"
     ) as HTMLInputElement;
     $carNamesInputBox.disabled = true;
-    const $carNamesConfirmButton: HTMLButtonElement = document.getElementsByTagName("button")[0];
+    const $carNamesConfirmButton: HTMLButtonElement =
+      document.getElementsByTagName("button")[0];
     $carNamesConfirmButton.disabled = true;
-    const $roundConfirmFieldset: HTMLElement = document.getElementsByTagName("fieldset")[1];
+    const $roundConfirmFieldset: HTMLElement =
+      document.getElementsByTagName("fieldset")[1];
     $roundConfirmFieldset.hidden = false;
   }
 
@@ -78,7 +81,7 @@ export default class SettingSectionController {
     const $numberInputBox: HTMLInputElement = document.querySelector(
       "input[type='number']"
     )!;
-    const racingRound: number = Number($numberInputBox?.value);
+    const racingRound: number = Number($numberInputBox ?.value);
     if (racingRound <= 0 || isNaN(racingRound)) {
       alert(ERROR_MSG.WRONG_RACING_ROUND);
       $numberInputBox.value = "0";
@@ -86,7 +89,8 @@ export default class SettingSectionController {
     }
     localStorage.setItem("round", racingRound.toString());
     $numberInputBox.disabled = true;
-    const $roundConfirmButton: HTMLButtonElement = document.querySelectorAll("button")[1];
+    const $roundConfirmButton: HTMLButtonElement =
+      document.querySelectorAll("button")[1];
     $roundConfirmButton.disabled = true;
   }
 }
