@@ -1,4 +1,4 @@
-const ERRMSG: string = "hello";
+import { ERROR_MSG } from "../../src/js/controller/SettingSectionControllerError.js";
 
 context("racing cars", () => {
   beforeEach(() => {
@@ -13,7 +13,7 @@ context("racing cars", () => {
       .eq(0)
       .click()
       .then(() => {
-        expect(stub.getCall(0)).to.be.calledWith(ERRMSG);
+        expect(stub.getCall(0)).to.be.calledWith(ERROR_MSG.OVER_CHARACTERS);
       });
   });
 
@@ -34,7 +34,7 @@ context("racing cars", () => {
       .eq(0)
       .click()
       .then(() => {
-        expect(stub.getCall(0)).to.be.calledWith(ERRMSG);
+        expect(stub.getCall(0)).to.be.calledWith(ERROR_MSG.NO_CAR);
       });
   });
 
@@ -50,8 +50,9 @@ context("racing cars", () => {
   });
 
   it("input number min test", () => {
+    cy.get("input[type='text']").type("EAST,WEST,SOUTH,NORTH");
+    cy.get("button").eq(0).click();
     cy.get("input[type='number']")
-      .click()
       .type("{downarrow}")
       .type("{downarrow}")
       .type("{downarrow}")
@@ -61,18 +62,17 @@ context("racing cars", () => {
   });
 
   it("input minus number test", () => {
-    // const stub = cy.stub();
-    // cy.on("window:alert", stub);
+    const stub = cy.stub();
+    cy.on("window:alert", stub);
+    cy.get("input[type='text']").type("EAST,WEST,SOUTH,NORTH");
+    cy.get("button").eq(0).click();
     cy.get("input[type='number']").type("-1");
-    cy.get("button").eq(1).click();
-    /*
     cy.get("button")
-      .eq(0)
+      .eq(1)
       .click()
       .then(() => {
-        expect(stub.getCall(0)).to.be.calledWith(ERRMSG);
+        expect(stub.getCall(0)).to.be.calledWith(ERROR_MSG.WRONG_RACING_ROUND);
       });
-      */
   });
 
   it("winner must print on html test", () => {
@@ -83,17 +83,16 @@ context("racing cars", () => {
     cy.get("h2").should("not.have.text", "🏆 최종 우승자:  🏆");
   });
 
-  it("multiple winner test", () => {});
-
   it("winner on alert test", () => {
     const stub = cy.stub();
     cy.on("window:alert", stub);
-    cy.get("input[type='text']").type("EAST,WEST,SOUTH,NORTH");
+    cy.get("input[type='text']").type("EAST");
     cy.get("button").eq(0).click();
     cy.get("input[type='number']").type("2");
     cy.get("button").eq(1).click();
-    cy.wait(2000).then(() => {
-      expect(stub.getCall(0)).to.be.calledWith(ERRMSG);
+    cy.wait(4000);
+    cy.then(() => {
+      expect(stub.getCall(0)).to.be.calledWith("🏆 WINNER is EAST 🏆");
     });
   });
 });

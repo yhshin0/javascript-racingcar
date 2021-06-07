@@ -122,18 +122,17 @@ This project is [MIT](https://github.com/woowacourse/javascript-racingcar/blob/m
 
 ## 테스트
 
-- [ ] 자동차 입력
-  - [ ] 5자 이상의 자동차 입력시 경고창 출력 // 123456, EAST, WEST, SOUTH
-  - [ ] 콤마를 연속해서 입력시 무시 // EAST,,,WEST,SOUTH,NORTH
-  - [ ] 차 이름이 없는 경우 경고창 출력(ex: 공백만 입력) // " " 입력
-  - [ ] 공백 무시 여부 // EAST , WEST ,SOUTH,NORTH
-- [ ] 시도 횟수 입력
-  - [ ] input min 설정 여부
-  - [ ] 음수 입력 시 경고창 출력
-- [ ] 우승자 출력
-  - [ ] 우승자 문서 위에 출력 여부 // should not ""
-  - [ ] 우승자가 여러명일 때 ,로 구분 여부
-  - [ ] 우승자 alert으로 2초 뒤에 출력 여부
+- [x] 자동차 입력
+  - [x] 5자 이상의 자동차 입력시 경고창 출력 // 123456, EAST, WEST, SOUTH
+  - [x] 콤마를 연속해서 입력시 무시 // EAST,,,WEST,SOUTH,NORTH
+  - [x] 차 이름이 없는 경우 경고창 출력(ex: 공백만 입력) // " " 입력
+  - [x] 공백 무시 여부 // EAST , WEST ,SOUTH,NORTH
+- [x] 시도 횟수 입력
+  - [x] input min 설정 여부
+  - [x] 음수 입력 시 경고창 출력
+- [x] 우승자 출력
+  - [x] 우승자 문서 위에 출력 여부 // should not ""
+  - [x] 우승자 alert으로 2초 뒤에 출력 여부
 
 ### 기능
 
