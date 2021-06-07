@@ -1,7 +1,8 @@
 import RacingGame from "./RacingGame.js";
+import { $ } from "./utils.js";
 
 export default function App() {
-  new RacingGame({ $app: document.querySelector("#app")! });
+  new RacingGame({ $app: <HTMLDivElement>$("#app")! });
 }
 
 App();

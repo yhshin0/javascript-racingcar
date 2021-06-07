@@ -1,9 +1,10 @@
 import ResultSection from "../render/ResultSection.js";
+import { $, $$ } from "../utils.js";
 
 export default class RacingSectionController {
   cars: string[];
   carDistances: number[];
-  carHTMLElements: HTMLCollection | null;
+  carHTMLElements: NodeListOf<HTMLElement> | null;
   round: number;
 
   constructor() {
@@ -16,25 +17,25 @@ export default class RacingSectionController {
   }
 
   setRacingCars(): void {
-    this.cars = localStorage.getItem("cars")?.split(",")!;
+    this.cars = localStorage.getItem("cars") ?.split(",")!;
     this.carDistances = Array.from({ length: this.cars.length }, () => 0);
-    this.carHTMLElements = document.getElementsByClassName("car-player");
+    this.carHTMLElements = $$("div.car-player");
     this.round = Number(localStorage.getItem("round"));
   }
 
   async startGame(): Promise<void> {
     const result: number = await this.startRacing();
-    clearInterval(<number> result);
+    clearInterval(<number>result);
     const winner: string = this.findWinner();
     this.removeSpinners();
     this.renderResult();
     setTimeout(() => {
       alert(`🏆 WINNER is ${winner} 🏆`);
-      const $restartButton: HTMLButtonElement = document.getElementsByTagName("button")[2];
+      const $restartButton: HTMLButtonElement = <HTMLButtonElement>$$("button")[2];
       $restartButton.addEventListener("click", () => this.getBackToReadyState());
     }, 2000);
   }
-  
+
   startRacing(): Promise<number> {
     return new Promise(resolve => {
       let intervalTimerId: number = setInterval(() => {
@@ -47,7 +48,7 @@ export default class RacingSectionController {
   }
 
   rollDiceAndRenderArrow(): void {
-    this.cars?.forEach((_, idx) => {
+    this.cars ?.forEach((_, idx) => {
       if (Math.random() * 10 >= 4) {
         this.carDistances[idx]++;
         this.carHTMLElements![idx].insertAdjacentHTML(
@@ -68,9 +69,7 @@ export default class RacingSectionController {
   }
 
   removeSpinners(): void {
-    const spinners: HTMLCollection = document.getElementsByClassName(
-      "d-flex justify-center mt-3"
-    );
+    const spinners: NodeListOf<HTMLElement> = $$("div.d-flex.justify-center.mt-3");
     for (let i = spinners.length - 1; i >= 0; i--) {
       spinners[i].remove();
     }
@@ -78,22 +77,20 @@ export default class RacingSectionController {
 
   renderResult(): void {
     const resultSection = new ResultSection();
-    document
-      .getElementById("app")
-      ?.insertAdjacentHTML("beforeend", <string> resultSection.render());
+    $("#app") ?.insertAdjacentHTML("beforeend", <string>resultSection.render());
   }
 
   getBackToReadyState(): void {
-    const $resultSection: HTMLElement = document.querySelectorAll("section")[2];
+    const $resultSection: HTMLElement = $$("section")[2];
     $resultSection.remove();
-    const $racingSection: HTMLDivElement = document.querySelector("div.mt-4")!;
+    const $racingSection: HTMLDivElement = <HTMLDivElement>$("div.mt-4")!;
     $racingSection.innerHTML = "";
-    document.querySelectorAll("input").forEach(elem=>{
+    document.querySelectorAll("input").forEach(elem => {
       elem.disabled = false;
       elem.value = "";
     });
-    document.querySelectorAll("button").forEach(elem=>elem.disabled = false);
-    const $roundInputFieldset = document.querySelectorAll("fieldset")[1];
+    $$("button").forEach(elem => (<HTMLButtonElement>elem).disabled = false);
+    const $roundInputFieldset: HTMLElement = $$("fieldset")[1];
     $roundInputFieldset.hidden = true;
   }
 }

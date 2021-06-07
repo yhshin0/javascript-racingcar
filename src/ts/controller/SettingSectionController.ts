@@ -1,6 +1,7 @@
 import RacingCarDiv from "../render/RacingCarDiv.js";
 import RacingSectionController from "./RacingSectionController.js";
 import { ERROR_MSG } from "./SettingSectionControllerError.js";
+import { $, $$ } from "../utils.js";
 
 export default class SettingSectionController {
   cars: string[];
@@ -11,11 +12,15 @@ export default class SettingSectionController {
   }
 
   addEventToButtons(): void {
-    const $carNameConfirmButton = document.getElementsByTagName("button")[0];
+    const $carNameConfirmButton: HTMLButtonElement = <HTMLButtonElement>(
+      $$("button")[0]
+    );
     $carNameConfirmButton.addEventListener("click", () => {
       this.splitCarNames();
     });
-    const $roundConfirmButton = document.getElementsByTagName("button")[1];
+    const $roundConfirmButton: HTMLButtonElement = <HTMLButtonElement>(
+      $$("button")[1]
+    );
     $roundConfirmButton.addEventListener("click", () => {
       this.setRacingRound();
       if (localStorage.getItem("round")) {
@@ -25,14 +30,14 @@ export default class SettingSectionController {
   }
 
   splitCarNames(): void {
-    const $carNamesInputBox = document.querySelector(
-      "input[type='text']"
-    ) as HTMLInputElement;
+    const $carNamesInputBox: HTMLInputElement = <HTMLInputElement>(
+      $("input[type='text']")
+    );
     this.cars = $carNamesInputBox.value
       .split(",")
       .map(car => car.trim())
       .filter(car => car != "");
-    const errorMsg = this.isValidCarName();
+    const errorMsg: string = this.isValidCarName();
     if (errorMsg !== ERROR_MSG.SUCCESS) {
       alert(errorMsg);
       $carNamesInputBox.value = "";
@@ -44,44 +49,46 @@ export default class SettingSectionController {
   }
 
   isValidCarName(): string {
-    let ret = ERROR_MSG.SUCCESS;
+    let ret: string = ERROR_MSG.SUCCESS;
     if (this.cars.length === 0) {
       return ERROR_MSG.NO_CAR;
     }
     this.cars.forEach(car => {
       if (car.length > 5) {
         ret = ERROR_MSG.OVER_CHARACTERS;
+        return;
       }
     });
     return ret;
   }
 
   displayRoundFieldset(): void {
-    const $carNamesInputBox = document.querySelector(
-      "input[type='text']"
-    ) as HTMLInputElement;
+    const $carNamesInputBox: HTMLInputElement = <HTMLInputElement>(
+      $("input[type='text']")
+    );
     $carNamesInputBox.disabled = true;
-    const $carNamesConfirmButton: HTMLButtonElement =
-      document.getElementsByTagName("button")[0];
+    const $carNamesConfirmButton: HTMLButtonElement = <HTMLButtonElement>(
+      $$("button")[0]
+    );
     $carNamesConfirmButton.disabled = true;
-    const $roundConfirmFieldset: HTMLElement =
-      document.getElementsByTagName("fieldset")[1];
+    const $roundConfirmFieldset: HTMLElement = <HTMLElement>$$("fieldset")[1];
     $roundConfirmFieldset.hidden = false;
   }
 
   renderCars(): void {
     this.cars.forEach(car => {
-      document
-        .querySelector("section>div")
-        ?.insertAdjacentHTML("beforeend", new RacingCarDiv().render(car));
+      $("section>div")?.insertAdjacentHTML(
+        "beforeend",
+        new RacingCarDiv().render(car)
+      );
     });
   }
 
   setRacingRound(): void {
-    const $numberInputBox: HTMLInputElement = document.querySelector(
-      "input[type='number']"
-    )!;
-    const racingRound: number = Number($numberInputBox ?.value);
+    const $numberInputBox: HTMLInputElement = <HTMLInputElement>(
+      $("input[type='number']")
+    );
+    const racingRound: number = Number($numberInputBox?.value);
     if (racingRound <= 0 || isNaN(racingRound)) {
       alert(ERROR_MSG.WRONG_RACING_ROUND);
       $numberInputBox.value = "0";
@@ -89,8 +96,9 @@ export default class SettingSectionController {
     }
     localStorage.setItem("round", racingRound.toString());
     $numberInputBox.disabled = true;
-    const $roundConfirmButton: HTMLButtonElement =
-      document.querySelectorAll("button")[1];
+    const $roundConfirmButton: HTMLButtonElement = <HTMLButtonElement>(
+      $$("button")[1]
+    );
     $roundConfirmButton.disabled = true;
   }
 }
