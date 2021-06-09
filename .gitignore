@@ -154,6 +154,9 @@ typings/
 # TypeScript cache
 *.tsbuildinfo
 
+# exclude js
+src/**/*.js
+
 # Optional npm cache directory
 .npm
 

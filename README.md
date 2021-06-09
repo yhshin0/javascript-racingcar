@@ -12,23 +12,26 @@
 </p>
 
 ## 🔥 Projects!
+
 <p align="middle">
   <img width="400" src="https://techcourse-storage.s3.ap-northeast-2.amazonaws.com/7c76e809d82a4a3aa0fd78a86be25427">
 </p>
 
 ### 🎯 step1
-- [ ] 주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.
-- [ ] 자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.
-- [ ] 자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5자 이하만 가능하다.
-- [ ] 사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.
-- [ ] 전진하는 조건은 0에서 9 사이에서 random 값을 구한 후 random 값이 4 이상일 경우 전진하고, 3 이하의 값이면 멈춘다.
-- [ ] 자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.
-- [ ] 우승자가 여러명일 경우 ,를 이용하여 구분한다.
+
+- [x] 주어진 횟수 동안 n대의 자동차는 전진 또는 멈출 수 있다.
+- [x] 자동차에 이름을 부여할 수 있다. 전진하는 자동차를 출력할 때 자동차 이름을 같이 출력한다.
+- [x] 자동차 이름은 쉼표(,)를 기준으로 구분하며 이름은 5자 이하만 가능하다.
+- [x] 사용자는 몇 번의 이동을 할 것인지를 입력할 수 있어야 한다.
+- [x] 전진하는 조건은 0에서 9 사이에서 random 값을 구한 후 random 값이 4 이상일 경우 전진하고, 3 이하의 값이면 멈춘다.
+- [x] 자동차 경주 게임을 완료한 후 누가 우승했는지를 알려준다. 우승자는 한 명 이상일 수 있다.
+- [x] 우승자가 여러명일 경우 ,를 이용하여 구분한다.
 
 ### 🎯🎯 step2
-- [ ] 자동차 경주 게임의 턴이 진행 될 때마다 1초의 텀(progressive 재생)을 두고 진행한다.
-    - [ ] 애니메이션 구현을 위해 setInterval, setTimeout, requestAnimationFrame 을 활용한다.
-- [ ] 정상적으로 게임의 턴이 다 동작된 후에는 결과를 보여주고, 2초 후에 축하의 alert 메세지를 띄운다.
+
+- [x] 자동차 경주 게임의 턴이 진행 될 때마다 1초의 텀(progressive 재생)을 두고 진행한다.
+  - [x] 애니메이션 구현을 위해 setInterval, setTimeout, requestAnimationFrame 을 활용한다.
+- [x] 정상적으로 게임의 턴이 다 동작된 후에는 결과를 보여주고, 2초 후에 축하의 alert 메세지를 띄운다.
 - [ ] 위 기능들이 정상적으로 동작하는지 Cypress를 이용해 테스트한다.
 
 <br>
@@ -53,7 +56,7 @@ live-server 폴더명
 
 ## 👏 Contributing
 
-만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요. 
+만약 미션 수행 중에 개선사항이 보인다면, 언제든 자유롭게 PR을 보내주세요.
 
 <br>
 
@@ -66,3 +69,83 @@ live-server 폴더명
 ## 📝 License
 
 This project is [MIT](https://github.com/woowacourse/javascript-racingcar/blob/main/LICENSE) licensed.
+
+## 진행과정
+
+### 환경설정
+
+- [x] prettier
+- [x] eslint
+- [x] typescript
+- [x] cypress
+- [x] tsconfig.json
+- [x] cypress.json
+- [x] package.json
+
+| https://reactjs-kr.firebaseapp.com/docs/thinking-in-react.html 에 기술된 대로 진행
+
+### Component로 분리
+
+- app: 페이지 전체를 표현
+  - section: 게임 전 설정 부분
+    - form: 게임 관련 설정 부분
+      - fieldset: 차 이름 설정 부분
+        - h1: 타이틀
+        - p: 차 이름 설명
+        - div: 차 이름 입력
+      - fieldset: 게임 횟수 설정 부분
+        - p: 시도 횟수 설명
+        - div: 시도 횟수 입력
+          - input: 시도 횟수 입력
+          - button: 시도 횟수 제출
+  - section: 자동차 경주 부분
+    - div: 자동차 경주 부분
+      - div: 차 1 경주 부분
+        - div: 차 1 이름
+        - div: go 표시 ⬇️ (여러개 있을 수 있음)
+        - div: wait 표시
+          - div
+            - span
+  - section: 우승자 출력 부분
+    - div
+      - h2: 우승자 출력
+      - div: 다시 시작하기
+        - button: 다시 시작하기 버튼
+
+### 정적 버전 만들기
+
+- [x] app
+- [x] settingSection
+- [x] racingSection
+  - [x] racingCarDiv
+- [x] resultSection
+
+## 테스트
+
+- [x] 자동차 입력
+  - [x] 5자 이상의 자동차 입력시 경고창 출력 // 123456, EAST, WEST, SOUTH
+  - [x] 콤마를 연속해서 입력시 무시 // EAST,,,WEST,SOUTH,NORTH
+  - [x] 차 이름이 없는 경우 경고창 출력(ex: 공백만 입력) // " " 입력
+  - [x] 공백 무시 여부 // EAST , WEST ,SOUTH,NORTH
+  - [x] 자동차 중복 여부 // EAST,WEST,SOUTH,NORTH,EAST
+- [x] 시도 횟수 입력
+  - [x] input min 설정 여부
+  - [x] 음수 입력 시 경고창 출력
+- [x] 우승자 출력
+  - [x] 우승자 문서 위에 출력 여부 // should not ""
+  - [x] 우승자 alert으로 2초 뒤에 출력 여부
+
+### 기능
+
+- [x] 자동차 이름 입력
+- [x] 자동차 이름 제출
+  - [x] racingSection에 자동차 이름 출력
+- [x] 시도 횟수 입력
+- [x] 시도 횟수 제출
+  - [x] 게임 시작
+    - [x] 자동차 전진
+    - [x] 자동차 대기
+- [x] 우승자 출력
+- [x] 우승자 alert 출력
+- [x] 다시 시작하기
+  - [x] 요소 삭제
